@@ -10,17 +10,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="bg-light">
+  <body>
     <div class="container py-4">
-      <h1 class="mb-4">Sistem Pengecekan Draft Dokumen BC 2.7</h1>
+      <h1 class="text-center mb-4 fw-bold text-navy">
+        Sistem Pengecekan Draft Dokumen BC 2.7
+      </h1>
 
-      <div class="card p-3 mb-4 shadow-sm">
+      <div class="card p-4 mb-4 shadow-lg">
+        <!-- Upload -->
         <div class="mb-3">
-          <label class="form-label">Upload 3 File Excel (Draft, INV, PL)</label>
+          <label class="form-label fw-semibold"
+            >Upload 3 File Excel (Draft, INV, PL)</label
+          >
           <input type="file" id="files" class="form-control" multiple />
         </div>
+
+        <!-- Kurs -->
         <div class="mb-3">
-          <label class="form-label">Kurs</label>
+          <label class="form-label fw-semibold">Kurs</label>
           <input
             type="number"
             id="kurs"
@@ -34,7 +41,7 @@
         <!-- Dropdown PT + Nomor & Tanggal Kontrak -->
         <div class="mb-3 row">
           <div class="col-md-4">
-            <label class="form-label">Nama Perusahaan</label>
+            <label class="form-label fw-semibold">Nama Perusahaan</label>
             <select id="ptSelect" class="form-select">
               <option value="">Pilih Perusahaan</option>
               <option value="0">PT Bintang Indokarya Gemilang</option>
@@ -44,38 +51,42 @@
             </select>
           </div>
           <div class="col-md-4">
-            <label class="form-label">Nomor Kontrak</label>
+            <label class="form-label fw-semibold">Nomor Kontrak</label>
             <input type="text" id="noKontrak" class="form-control" readonly />
           </div>
           <div class="col-md-4">
-            <label class="form-label">Tanggal Kontrak</label>
+            <label class="form-label fw-semibold">Tanggal Kontrak</label>
             <input type="text" id="tglKontrak" class="form-control" readonly />
           </div>
         </div>
 
+        <!-- Filter -->
         <div class="mb-3">
-          <label class="form-label">Filter Hasil</label>
+          <label class="form-label fw-semibold">Filter Hasil</label>
           <select id="filter" class="form-select">
             <option value="all">Semua</option>
             <option value="sama">Sama</option>
             <option value="beda">Beda</option>
           </select>
         </div>
-        <button id="btnCheck" class="btn btn-primary fw-bold">
+
+        <!-- Button -->
+        <button id="btnCheck" class="btn btn-navy fw-bold w-100">
           Cross Check
         </button>
       </div>
 
-      <h2 class="mb-3">Hasil Pengecekan</h2>
-      <div class="card shadow-sm">
+      <!-- Hasil -->
+      <h2 class="fw-bold mb-3 text-navy">Hasil Pengecekan</h2>
+      <div class="card shadow-lg">
         <div class="card-body p-0">
           <table class="table table-bordered table-hover mb-0" id="resultTable">
-            <thead class="table-light">
+            <thead>
               <tr>
-                <th class="bg-primary">Pemeriksaan</th>
-                <th class="bg-primary">DRAFT EXIM</th>
-                <th class="bg-primary">DATA INV & PL</th>
-                <th class="bg-primary">Hasil</th>
+                <th>Pemeriksaan</th>
+                <th>DRAFT EXIM</th>
+                <th>DATA INV & PL</th>
+                <th>Hasil</th>
               </tr>
             </thead>
             <tbody></tbody>

@@ -289,7 +289,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
     // 🔹 Tambahkan baris judul barang collapsible
     const tbody = document.querySelector("#resultTable tbody");
     const rowHeader = document.createElement("tr");
-    rowHeader.classList.add("table-primary", "fw-bold", "barang-header");
+    rowHeader.classList.add("fw-bold", "barang-header");
     rowHeader.setAttribute("data-target", "barang-" + barangCounter);
     rowHeader.innerHTML = `
             <td colspan="4">Barang ke-${barangCounter}</td>

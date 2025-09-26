@@ -4,9 +4,63 @@
 #resultTable tbody tr.mismatch td {
   background-color: #f8d7da !important;
 }
-.barang-header {
-  cursor: pointer;
-}
-#resultTable thead th.bg-primary {
+#resultTable tbody tr.barang-header td {
+  background-color: #1b2a49 !important;
   color: #fff !important;
+}
+
+/* Table styling */
+/* Paksa override bootstrap */
+#resultTable thead tr {
+  background-color: #1b2a49 !important;
+}
+#resultTable thead th {
+  background-color: #1b2a49 !important;
+  color: #fff !important;
+  text-align: center;
+  font-weight: 600;
+}
+
+#resultTable {
+  border: 1px solid #ddd;
+}
+
+#resultTable tbody tr:hover {
+  background-color: #f1f4fb; /* biru muda */
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+}
+
+/* Warna khusus */
+.text-navy {
+  color: #1b2a49;
+}
+
+.btn-navy {
+  background-color: #1b2a49;
+  color: #fff;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.btn-navy:hover {
+  background-color: #273c75;
+  color: #fff;
+}
+
+.card {
+  border-radius: 15px;
+  border: none;
+}
+
+/* Table styling */
+#resultTable thead {
+  background: #1b2a49;
+  color: white;
+}
+#resultTable tbody tr:nth-child(even) {
+  background: #eef2f9;
 }
