@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sistem Pengecekan Dokumen Excel</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-light">
+    <div class="container py-4">
+      <h1 class="mb-4">Sistem Pengecekan Draft Dokumen BC 2.7</h1>
+
+      <div class="card p-3 mb-4 shadow-sm">
+        <div class="mb-3">
+          <label class="form-label">Upload 3 File Excel (Draft, INV, PL)</label>
+          <input type="file" id="files" class="form-control" multiple />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Kurs</label>
+          <input
+            type="number"
+            id="kurs"
+            class="form-control"
+            placeholder="Kurs Mingguan"
+            step="0.0001"
+            readonly
+          />
+        </div>
+
+        <!-- Dropdown PT + Nomor & Tanggal Kontrak -->
+        <div class="mb-3 row">
+          <div class="col-md-4">
+            <label class="form-label">Nama Perusahaan</label>
+            <select id="ptSelect" class="form-select">
+              <option value="">Pilih Perusahaan</option>
+              <option value="0">PT Bintang Indokarya Gemilang</option>
+              <option value="1">PT Shoetown Ligung Indonesia</option>
+              <option value="2">PT Long Rich Indonesia</option>
+              <option value="3">PT Panarub Industry</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Nomor Kontrak</label>
+            <input type="text" id="noKontrak" class="form-control" readonly />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Tanggal Kontrak</label>
+            <input type="text" id="tglKontrak" class="form-control" readonly />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Filter Hasil</label>
+          <select id="filter" class="form-select">
+            <option value="all">Semua</option>
+            <option value="sama">Sama</option>
+            <option value="beda">Beda</option>
+          </select>
+        </div>
+        <button id="btnCheck" class="btn btn-primary fw-bold">
+          Cross Check
+        </button>
+      </div>
+
+      <h2 class="mb-3">Hasil Pengecekan</h2>
+      <div class="card shadow-sm">
+        <div class="card-body p-0">
+          <table class="table table-bordered table-hover mb-0" id="resultTable">
+            <thead class="table-light">
+              <tr>
+                <th class="bg-primary">Pemeriksaan</th>
+                <th class="bg-primary">DRAFT EXIM</th>
+                <th class="bg-primary">DATA INV & PL</th>
+                <th class="bg-primary">Hasil</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modular JS -->
+    <script src="./Scripts/dataKontrak.js"></script>
+    <script src="./Scripts/utils.js"></script>
+    <script src="./Scripts/checker.js"></script>
+    <script src="./Scripts/app.js"></script>
+  </body>
+</html>

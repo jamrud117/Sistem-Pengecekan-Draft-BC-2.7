@@ -1,0 +1,12 @@
+#resultTable tbody tr.match td {
+  background-color: #d4edda !important;
+}
+#resultTable tbody tr.mismatch td {
+  background-color: #f8d7da !important;
+}
+.barang-header {
+  cursor: pointer;
+}
+#resultTable thead th.bg-primary {
+  color: #fff !important;
+}
