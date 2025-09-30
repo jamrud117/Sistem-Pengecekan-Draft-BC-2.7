@@ -134,7 +134,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
 
   // === HEADER
   addResult(
-    "CIF Total",
+    "CIF",
     getCellValue(sheetsDATA.HEADER, "BU2"),
     cifSum,
     isEqual(getCellValue(sheetsDATA.HEADER, "BU2"), cifSum),
@@ -181,7 +181,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
     true
   );
   addResult(
-    "Total Brutto",
+    "Brutto",
     getCellValue(sheetsDATA.HEADER, "CB2"),
     bruttoSum,
     isEqual(getCellValue(sheetsDATA.HEADER, "CB2"), bruttoSum),
@@ -189,7 +189,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
     "KG"
   );
   addResult(
-    "Total Netto",
+    "Netto",
     getCellValue(sheetsDATA.HEADER, "CC2"),
     nettoSum,
     isEqual(getCellValue(sheetsDATA.HEADER, "CC2"), nettoSum),
@@ -201,13 +201,13 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
   const invInvoiceNo = findInvoiceNo(sheetINV);
   const plInvoiceNo = findInvoiceNo(sheetPL);
   addResult(
-    "Nomor Invoice",
+    "Invoice Number",
     getCellValue(sheetsDATA.DOKUMEN, "D2"), // dari DOKUMEN
     invInvoiceNo,
     isEqual(getCellValue(sheetsDATA.DOKUMEN, "D2"), invInvoiceNo)
   );
   addResult(
-    "Nomor Invoice (PL)",
+    "Invoice Number (PL)",
     getCellValue(sheetsDATA.DOKUMEN, "D2"),
     plInvoiceNo,
     isEqual(getCellValue(sheetsDATA.DOKUMEN, "D2"), plInvoiceNo)
@@ -223,7 +223,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
     );
   }
   addResult(
-    "Nomor Surat Jalan",
+    "Delivery Order",
     getCellValue(sheetsDATA.DOKUMEN, "D5"),
     invSuratJalan,
     isEqual(getCellValue(sheetsDATA.DOKUMEN, "D5"), invSuratJalan)
@@ -258,7 +258,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
   const draftNoKontrak = formatAsDate(draftNoKontrakRaw);
   const fieldNoKontrak = document.getElementById("noKontrak").value;
   addResult(
-    "Nomor Kontrak",
+    "Contract Number",
     draftNoKontrak,
     fieldNoKontrak,
     isEqual(draftNoKontrak, fieldNoKontrak)
@@ -268,7 +268,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
   const draftTglKontrak = formatAsDate(draftTglKontrakRaw);
   const fieldTglKontrak = document.getElementById("tglKontrak").value;
   addResult(
-    "Tanggal Kontrak",
+    "Contract Date",
     draftTglKontrak,
     fieldTglKontrak,
     isEqual(draftTglKontrak, fieldTglKontrak)
@@ -304,12 +304,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
             XLSX.utils.encode_cell({ r: rowINV, c: invCols.kode })
           )
         : "";
-    addResult(
-      "Kode Barang",
-      kodeBarang,
-      invKodeVal,
-      isEqual(kodeBarang, invKodeVal)
-    );
+    addResult("Code", kodeBarang, invKodeVal, isEqual(kodeBarang, invKodeVal));
 
     // Uraian
     const draftUraian = getCellValue(sheetsDATA.BARANG, "E" + (r + 1));
@@ -321,7 +316,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
           )
         : "";
     addResult(
-      "Uraian",
+      "Name",
       draftUraian,
       invUraian,
       isEqualStrict(draftUraian, invUraian) // 🔹 ganti ke strict
@@ -329,6 +324,8 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
 
     // QTY Barang
     const draftQty = getCellValue(sheetsDATA.BARANG, "K" + (r + 1));
+
+    // ambil QTY dari INV
     const invQty =
       invCols.qty !== undefined
         ? getCellValue(
@@ -336,13 +333,25 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
             XLSX.utils.encode_cell({ r: rowINV, c: invCols.qty })
           )
         : "";
+
+    // Unit dari Draft (file DATA, sheet BARANG, cell J2)
+    const draftUnit = getCellValue(sheetsDATA.BARANG, "J2") || "NPR";
+
+    // Unit dari dropdown (untuk INV & PL)
+    const selectedUnit = document.getElementById("unitSelect").value || "NPR";
+
+    // Cek angka & unit
+    const qtyMatch = isEqual(draftQty, invQty);
+    const unitMatch = draftUnit === selectedUnit;
+
     addResult(
-      "QTY Barang",
+      "Quantity",
       draftQty,
       invQty,
-      isEqual(draftQty, invQty),
+      qtyMatch && unitMatch, // Sama hanya jika angka & unit sama
       true,
-      "NPR"
+      selectedUnit, // untuk INV/PL tampil sesuai dropdown
+      draftUnit // untuk Draft tampil sesuai J2
     );
 
     // Netto/Item
@@ -355,7 +364,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
           )
         : "";
     addResult(
-      "Netto/Item",
+      "NW",
       draftNettoItem,
       plNettoItem,
       isEqual(draftNettoItem, plNettoItem),
@@ -373,7 +382,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
           )
         : "";
     addResult(
-      "Brutto/Item",
+      "GW",
       draftBruttoItem,
       plBruttoItem,
       isEqual(draftBruttoItem, plBruttoItem),
@@ -390,7 +399,7 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
           )
         : "";
     addResult(
-      "CIF/Item",
+      "Amount",
       draftCIF,
       invCIF,
       isEqual(draftCIF, invCIF),

@@ -26,16 +26,31 @@
         </div>
 
         <!-- Kurs -->
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Kurs</label>
-          <input
-            type="number"
-            id="kurs"
-            class="form-control"
-            placeholder="Kurs Mingguan"
-            step="0.0001"
-            readonly
-          />
+
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Kurs</label>
+              <input
+                type="number"
+                id="kurs"
+                class="form-control"
+                placeholder="Kurs Mingguan"
+                step="0.0001"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="col">
+            <!-- Dropdown Unit Satuan -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Unit Satuan QTY</label>
+              <select id="unitSelect" class="form-select">
+                <option value="NPR">NPR</option>
+                <option value="PCE">PCE</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <!-- Dropdown PT + Nomor & Tanggal Kontrak -->
