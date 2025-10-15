@@ -132,6 +132,8 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
     }
   }
 
+  // Ambil valuta otomatis dari HEADER!CI2
+  const valuta = getCellValue(sheetsDATA.HEADER, "CI2") || "";
   // === HEADER
   addResult(
     "CIF",
@@ -139,13 +141,27 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
     cifSum,
     isEqual(getCellValue(sheetsDATA.HEADER, "BU2"), cifSum),
     false,
-    "USD"
+    valuta
   );
   addResult(
     "Harga Penyerahan",
     getCellValue(sheetsDATA.HEADER, "BV2"),
     cifSum * kurs,
     isEqual(getCellValue(sheetsDATA.HEADER, "BV2"), cifSum * kurs)
+  );
+  // === Tambahan: Dasar Pengenaan Pajak (DPP)
+  const hargaPenyerahan = getCellValue(sheetsDATA.HEADER, "BV2");
+  const dasarPengenaanPajak = getCellValue(sheetsDATA.HEADER, "BY2");
+
+  // Hitung pembanding: harga penyerahan * 11%
+  const dppExpected = parseFloat(hargaPenyerahan || 0) * 0.11;
+
+  // Bandingkan
+  addResult(
+    "PPN 11%",
+    dasarPengenaanPajak,
+    dppExpected,
+    Math.abs(parseFloat(dasarPengenaanPajak || 0) - dppExpected) < 0.01
   );
 
   // === KEMASAN
@@ -201,13 +217,13 @@ function checkAll(sheetPL, sheetINV, sheetsDATA, kurs) {
   const invInvoiceNo = findInvoiceNo(sheetINV);
   const plInvoiceNo = findInvoiceNo(sheetPL);
   addResult(
-    "Invoice Number",
+    "Invoice No.",
     getCellValue(sheetsDATA.DOKUMEN, "D2"), // dari DOKUMEN
     invInvoiceNo,
     isEqual(getCellValue(sheetsDATA.DOKUMEN, "D2"), invInvoiceNo)
   );
   addResult(
-    "Invoice Number (PL)",
+    "Packinglist No.",
     getCellValue(sheetsDATA.DOKUMEN, "D2"),
     plInvoiceNo,
     isEqual(getCellValue(sheetsDATA.DOKUMEN, "D2"), plInvoiceNo)
